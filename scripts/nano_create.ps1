@@ -5,6 +5,7 @@ cd c:\NanoServer
 xcopy /s d:\NanoServer\*.* .
 Import-Module .\NanoServerImageGenerator.psm1
 $adminPassword = ConvertTo-SecureString "Pass@word1" -AsPlainText -Force
+$packages = @("Microsoft-NanoServer-IIS-Package","Microsoft-NanoServer-DSC-Package")
 
 New-NanoServerImage `
   -MediaPath D:\ `
@@ -13,6 +14,7 @@ New-NanoServerImage `
   -ComputerName Nano `
   -OEMDrivers `
   -ReverseForwarders `
+  -Packages $packages `
   -AdministratorPassword $adminPassword
 
 Mount-DiskImage -ImagePath "c:\NanoServer\nano\Nano.vhdx"
